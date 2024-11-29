@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <title>WEB-OX</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0%;
+    }
+
+    body {
+      display: flex;
+      height: 100svh;
+      user-select: none;
+    }
+
+    #grid {
+      display: grid;
+      justify-self: center;
+      grid-template-columns: repeat(3, 30%);
+      background-color: crimson;
+      place-items: center;
+      width: 100%;
+      aspect-ratio: 1/1;
+      gap: 1%;
+      margin: auto;
+    }
+
+    .cell {
+      background-color: turquoise;
+      width: 80%;
+      aspect-ratio: 1/1;
+      font-size: 7em;
+      font-family: monospace;
+      font-weight: 800;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="grid">
+    {% for cell in grid %}
+    <div class="cell" onclick="onCellClicked(event)">{{ cell }}</div>
+    {% endfor %}
+  </div>
+
+  <script>
+    async function onCellClicked(event) {
+      if (event.target.textContent.trim() !== '') {
+        alert('This cell is FULL!');
+      } else {
+        let res = await fetch('/api/mark', {method: "POST", body: "hello", credentials: "include"});
+        res = await res.json()
+        alert(JSON.stringify(res));
+      }
+    }
+  </script>
+
+</body>
+
+</html>
